@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import wordBank from "./word_bank.json";
+import Popup from "./Popup";
 
 const ROWS_PER_GAME = 4;
 const MAX_MISTAKES = 3;
@@ -45,6 +46,9 @@ function App() {
   const [gameOver, setGameOver] = useState(false);
   const [finishedAllRows, setFinishedAllRows] = useState(false);
   const [currentCategory, setCurrentCategory] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
+  const [popupDetails, setPopupDetails] = useState("");
 
   const activeRowIndex = rows.findIndex((r) => !r.solved);
 
@@ -81,7 +85,6 @@ function App() {
             selectedIndex: cardIndex
           };
 
-          // Update the category banner at the top
           setCurrentCategory(row.category);
 
           const tempRows = prevRows.map((r, i2) =>
@@ -91,7 +94,15 @@ function App() {
 
           if (allSolved) {
             setFinishedAllRows(true);
-            setMessage("You found all the imposters!");
+            // Calculate total clicks: correct + all wrongs
+            const totalClicks = tempRows.reduce((acc, r) => acc + 1 + r.wrongIndices.length, 0);
+            let details = `It took you ${totalClicks} clicks.`;
+            if (totalClicks === ROWS_PER_GAME) {
+              details += "\nPerfect Game!";
+            }
+            setPopupMessage("You found all the imposters!");
+            setPopupDetails(details);
+            setShowPopup(true);
             setCurrentCategory(""); // clear category when fully done
           } else {
             setMessage("Nice! Move on to the next row.");
@@ -110,7 +121,11 @@ function App() {
 
           if (newMistakes <= 0) {
             setGameOver(true);
-            setMessage("Game over. No mistakes left.");
+            const correctRows = prevRows.filter((r) => r.solved).length;
+            const lostCategory = row.category;
+            setPopupMessage("Game over. No mistakes left.");
+            setPopupDetails(`You got ${correctRows} rows correct.\nThe category was: ${lostCategory}`);
+            setShowPopup(true);
             setCurrentCategory(""); // clear category on game over
           } else {
             setMessage("Nope. Try a different option in this row.");
@@ -131,12 +146,15 @@ function App() {
     setGameOver(false);
     setFinishedAllRows(false);
     setCurrentCategory("");
+    setShowPopup(false);
+    setPopupMessage("");
+    setPopupDetails("");
   };
 
   return (
     <div className="app-root">
       <main className="game-container">
-        <h1 className="game-title">Imposter</h1>
+        <h1 className="game-title" style={{ fontSize: '3rem' }}>Imposter</h1>
         <div className="subtitle">Find the odd one out in each row.</div>
 
         {/* CATEGORY BANNER (TOP, WITH FADE-IN) */}
@@ -193,7 +211,10 @@ function App() {
         </div>
 
         <div className="status">
-          <div className="mistake-dots">{renderMistakeDots()}</div>
+          <div className="mistake-dots">
+            <span className="guesses-label" style={{ letterSpacing: '0.05em' }}>Guesses left: </span>
+            {renderMistakeDots()}
+          </div>
           <div className="message">{message}</div>
         </div>
 
@@ -203,6 +224,10 @@ function App() {
           </button>
         )}
       </main>
+
+      {showPopup && (
+        <Popup message={popupMessage} details={popupDetails} onClose={() => setShowPopup(false)} />
+      )}
     </div>
   );
 }
