@@ -16,7 +16,7 @@
 }
 
 .content-wrap {
-  max-width: 820px;       /* shared width for header, grid, etc. */
+  max-width: 820px; /* shared width for header, grid, footer */
   margin: 0 auto;
   text-align: center;
 }
@@ -30,8 +30,8 @@
 .header-top {
   position: relative;
   display: flex;
-  align-items: center;        /* vertically center title + dots */
-  justify-content: center;    /* center title horizontally */
+  align-items: center; /* vertically center title + dots */
+  justify-content: center; /* center title horizontally */
 }
 
 .game-title {
@@ -41,7 +41,6 @@
   line-height: 1.1;
 }
 
-/* Subtitle right under title */
 .subtitle {
   margin-top: 4px;
   font-size: 14px;
@@ -49,6 +48,7 @@
 }
 
 /* 3-dot menu button */
+
 .menu-button {
   position: absolute;
   right: 0;
@@ -56,7 +56,7 @@
   transform: translateY(-50%);
   border: none;
   background: transparent;
-  font-size: 25px;  /* you set this earlier */
+  font-size: 25px;
   font-weight: 600;
   line-height: 0.6;
   cursor: pointer;
@@ -69,14 +69,13 @@
   background: rgba(17, 24, 39, 0.06);
 }
 
-/* DROPDOWN MENU – light, minimalistic, with icons */
+/* DROPDOWN MENU – light, minimalistic */
 
 .dropdown-menu {
   position: absolute;
   top: 100%;
-  left: 100%;          /* anchor to the right side of the dots */
-  margin-left: 8px;    /* gap between dots and menu */
-
+  left: 100%;          /* anchor to right of dots */
+  margin-left: 8px;
   background: #ffffff;
   border-radius: 16px;
   border: 1px solid #e5e7eb;
@@ -103,7 +102,7 @@
   background: #f3f4f6;
 }
 
-/* circular icon on left (no blue, just dark/gray) */
+/* circular icon on left (matches popup icons) */
 .dropdown-icon {
   width: 22px;
   height: 22px;
@@ -131,9 +130,10 @@
   gap: 10px;
 }
 
-/* Yellow category bar – slightly shorter than grid */
+/* Yellow category bar – intentionally shorter than grid */
+
 .category-banner {
-  width: 82%;                 /* inset vs grid */
+  width: 82%; /* inset vs grid */
   margin: 0 auto;
   background: #f9df6d;
   padding: 1rem;
@@ -184,6 +184,7 @@
 }
 
 /* Tiles: evenly fill the width of the board */
+
 .card {
   flex: 1 1 0;
   min-width: 0;
@@ -212,6 +213,7 @@
 }
 
 /* future rows: blank, lighter grey, no text */
+
 .card.future {
   background: #edf0f3;
   color: transparent;
@@ -224,6 +226,7 @@
 }
 
 /* feedback states */
+
 .card.correct {
   background: #34d399;
   color: #065f46;
@@ -234,33 +237,63 @@
   color: #7f1d1d;
 }
 
-/* STATUS AREA */
+/* FOOTER: Game # (left) | Message (center) | Lives (right) */
 
-.status {
-  margin-top: 2px;
-  margin-bottom: 6px;
-  font-size: 16px;
+.footer-bar {
+  margin-top: 28px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
 }
 
-.message {
-  font-size: 13px;
+/* left: Game # */
+.game-number {
+  font-size: 14px;
+  font-weight: 500;
   color: #6b7280;
-  min-height: 18px;
-  margin-top: 2px;
 }
 
-.mistake-dots {
-  font-size: 20px;
-  letter-spacing: 6px;
-  color: #374151;
-  margin-bottom: 6px;
+/* center: status message */
+.footer-message {
+  flex: 1;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
 }
 
-.mistake-dot {
-  font-weight: 600;
+/* right: lives */
+.lives-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-/* Buttons */
+.lives-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.life-icon,
+.heart {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.life-full,
+.heart-full {
+  color: #ef4444;
+}
+
+.life-empty,
+.heart-empty {
+  color: #d1d5db;
+}
+
+/* Buttons (if you add any later) */
 
 .secondary-btn {
   border-radius: 999px;
@@ -279,7 +312,7 @@
   box-shadow: 0 5px 12px rgba(15, 23, 42, 0.16);
 }
 
-/* small screens tweaks */
+/* small screens */
 
 @media (max-width: 768px) {
   .game-container {
@@ -293,5 +326,20 @@
   .card {
     height: 60px;
     font-size: 14px;
+  }
+
+  .footer-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+  }
+
+  .footer-message {
+    order: 2;
+  }
+
+  .game-number,
+  .lives-row {
+    order: 1;
   }
 }

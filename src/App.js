@@ -6,28 +6,81 @@ import Popup from "./Popup";
 const ROWS_PER_GAME = 4;
 const MAX_MISTAKES = 3;
 
-function shuffle(array) {
+/**
+ * Simple seeded RNG (Mulberry32)
+ */
+function mulberry32(a) {
+  return function () {
+    let t = (a += 0x6d2b79f5);
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+/**
+ * Shuffle with a provided RNG function.
+ */
+function shuffleWithRng(array, rng) {
   const arr = [...array];
   for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    const j = Math.floor(rng() * (i + 1));
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
   return arr;
 }
 
-function buildRows() {
+/**
+ * Get "today" in America/New_York and compute a game number + seed.
+ * Game #1 = launch day (set below). Each day after increments by 1.
+ */
+function getGameInfo() {
+  const now = new Date();
+
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  });
+
+  const parts = formatter.formatToParts(now);
+  const year = Number(parts.find((p) => p.type === "year").value);
+  const month = Number(parts.find((p) => p.type === "month").value);
+  const day = Number(parts.find((p) => p.type === "day").value);
+
+  const estToday = new Date(year, month - 1, day);
+
+  // Launch date = Game #1 (month is 0-based, so 10 = November)
+  const launchDate = new Date(2025, 10, 21);
+  const oneDayMs = 24 * 60 * 60 * 1000;
+  const diffDays = Math.floor((estToday - launchDate) / oneDayMs);
+
+  const baseGameNumber = 1;
+  const gameNumber = baseGameNumber + Math.max(diffDays, 0);
+  const seed = gameNumber;
+
+  return { gameNumber, seed };
+}
+
+function buildRows(seed) {
+  const rng = mulberry32(seed);
+
   const allGames = [...wordBank.games];
-  const shuffledGames = shuffle(allGames);
+  const shuffledGames = shuffleWithRng(allGames, rng);
   const selected = shuffledGames.slice(0, ROWS_PER_GAME);
 
   return selected.map((g) => {
-    const cards = shuffle([
-      { text: g.word1, isImposter: false },
-      { text: g.word2, isImposter: false },
-      { text: g.word3, isImposter: false },
-      { text: g.word4, isImposter: false },
-      { text: g.imposter, isImposter: true }
-    ]);
+    const cards = shuffleWithRng(
+      [
+        { text: g.word1, isImposter: false },
+        { text: g.word2, isImposter: false },
+        { text: g.word3, isImposter: false },
+        { text: g.word4, isImposter: false },
+        { text: g.imposter, isImposter: true }
+      ],
+      rng
+    );
 
     return {
       category: g.category,
@@ -40,7 +93,9 @@ function buildRows() {
 }
 
 function App() {
-  const [rows, setRows] = useState(buildRows);
+  const { gameNumber, seed } = getGameInfo();
+
+  const [rows, setRows] = useState(() => buildRows(seed));
   const [mistakesLeft, setMistakesLeft] = useState(MAX_MISTAKES);
   const [message, setMessage] = useState("");
   const [gameOver, setGameOver] = useState(false);
@@ -54,16 +109,21 @@ function App() {
 
   const activeRowIndex = rows.findIndex((r) => !r.solved);
 
-  const renderMistakeDots = () => {
-    const dots = [];
+  // Hearts for lives
+  const renderLives = () => {
+    const hearts = [];
     for (let i = 0; i < MAX_MISTAKES; i++) {
-      dots.push(
-        <span key={i} className="mistake-dot">
-          {i < mistakesLeft ? "●" : "○"}
+      const full = i < mistakesLeft;
+      hearts.push(
+        <span
+          key={i}
+          className={`life-icon ${full ? "life-full" : "life-empty"}`}
+        >
+          {full ? "♥" : "♡"}
         </span>
       );
     }
-    return dots;
+    return hearts;
   };
 
   const handleCardClick = (rowIndex, cardIndex) => {
@@ -151,19 +211,6 @@ function App() {
     });
   };
 
-  const handleRestart = () => {
-    setRows(buildRows());
-    setMistakesLeft(MAX_MISTAKES);
-    setMessage("");
-    setGameOver(false);
-    setFinishedAllRows(false);
-    setCurrentCategory("");
-    setShowPopup(false);
-    setPopupMessage("");
-    setPopupDetails("");
-    setShowMenu(false);
-  };
-
   const handleShowInstructions = () => {
     setShowMenu(false);
 
@@ -176,7 +223,7 @@ Dog • Cat • Car • Horse • Bird
 
 The secret category is "Animals", so "Car" is the imposter.
 
-You only get ${MAX_MISTAKES} wrong guesses TOTAL for the whole game. Once you're out of mistakes, the game ends.`;
+You only get ${MAX_MISTAKES} lives. Each wrong guess costs one heart. When you run out of lives, the game ends.`;
 
     setPopupMessage("How to play");
     setPopupDetails(instructions);
@@ -188,7 +235,7 @@ You only get ${MAX_MISTAKES} wrong guesses TOTAL for the whole game. Once you're
 
     const about = `Disconnections is a simple "odd one out" guessing game inspired by daily word and logic games.
 
-Tap tiles to find the imposter in each row and see how few guesses you can use.`;
+Each day at midnight (US Eastern Time), a new set of rows and categories appears. Game #1 is the first day, and the number increases by 1 each day.`;
 
     setPopupMessage("About Disconnections");
     setPopupDetails(about);
@@ -221,10 +268,7 @@ Tap tiles to find the imposter in each row and see how few guesses you can use.`
                     <span className="dropdown-icon">?</span>
                     <span className="dropdown-label">How to play</span>
                   </button>
-                  <button
-                    className="dropdown-item"
-                    onClick={handleShowAbout}
-                  >
+                  <button className="dropdown-item" onClick={handleShowAbout}>
                     <span className="dropdown-icon">i</span>
                     <span className="dropdown-label">About</span>
                   </button>
@@ -296,24 +340,17 @@ Tap tiles to find the imposter in each row and see how few guesses you can use.`
             </div>
           </div>
 
-          <div className="status">
-            <div className="mistake-dots">
-              <span
-                className="guesses-label"
-                style={{ letterSpacing: "0.05em" }}
-              >
-                Guesses left:{" "}
-              </span>
-              {renderMistakeDots()}
-            </div>
-            <div className="message">{message}</div>
-          </div>
+          {/* FOOTER ROW: Game #  |  Message  |  Lives */}
+          <footer className="footer-bar">
+            <div className="game-number">Game #{gameNumber}</div>
 
-          {(gameOver || finishedAllRows) && (
-            <button className="secondary-btn" onClick={handleRestart}>
-              Play Again
-            </button>
-          )}
+            <div className="footer-message">{message}</div>
+
+            <div className="lives-row">
+              <span className="lives-label">Lives:</span>
+              {renderLives()}
+            </div>
+          </footer>
         </div>
       </main>
 
