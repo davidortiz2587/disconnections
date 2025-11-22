@@ -106,6 +106,7 @@ function App() {
   const [popupDetails, setPopupDetails] = useState("");
 
   const [showMenu, setShowMenu] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
 
   const activeRowIndex = rows.findIndex((r) => !r.solved);
 
@@ -189,6 +190,9 @@ function App() {
           if (newMistakes <= 0) {
             setGameOver(true);
 
+            // When the player loses, show a clear loss message in the footer
+            setMessage("Game Over! Try again tomorrow.");
+
             const correctRows = prevRows.filter((r) => r.solved).length;
             const lostCategory = row.category;
 
@@ -214,7 +218,7 @@ function App() {
   const handleShowInstructions = () => {
     setShowMenu(false);
 
-    const instructions = `Disconnections is a word game. Each row hides a category (like "Things you can roast" or "Types of vehicles") and shows five words.
+    const instructions = `Excludle is a word game. Each row hides a category (like "Things you can roast" or "Types of vehicles") and shows five words.
 
 Your job: tap the one word that DOESN'T belong in that hidden category – the imposter.
 
@@ -233,23 +237,28 @@ You only get ${MAX_MISTAKES} lives. Each wrong guess costs one heart. When you r
   const handleShowAbout = () => {
     setShowMenu(false);
 
-    const about = `Disconnections is a simple "odd one out" guessing game inspired by daily word and logic games.
+    const about = `Excludle is a simple "odd one out" guessing game inspired by daily word and logic games.
 
 Each day at midnight (US Eastern Time), a new set of rows and categories appears. Game #1 is the first day, and the number increases by 1 each day.`;
 
-    setPopupMessage("About Disconnections");
+    setPopupMessage("About Excludle");
     setPopupDetails(about);
     setShowPopup(true);
   };
 
+  const handleToggleDarkMode = () => {
+    setDarkMode((prev) => !prev);
+    setShowMenu(false);
+  };
+
   return (
-    <div className="app-root">
+    <div className={`app-root ${darkMode ? "dark" : ""}`}>
       <main className="game-container">
         <div className="content-wrap">
           {/* HEADER: title + menu + subtitle */}
           <header className="header">
             <div className="header-top">
-              <h1 className="game-title">Disconnections</h1>
+              <h1 className="game-title">Excludle</h1>
 
               <button
                 className="menu-button"
@@ -271,6 +280,10 @@ Each day at midnight (US Eastern Time), a new set of rows and categories appears
                   <button className="dropdown-item" onClick={handleShowAbout}>
                     <span className="dropdown-icon">i</span>
                     <span className="dropdown-label">About</span>
+                  </button>
+                  <button className="dropdown-item" onClick={handleToggleDarkMode}>
+                    <span className="dropdown-icon">{darkMode ? "☀" : "☾"}</span>
+                    <span className="dropdown-label">{darkMode ? "Light mode" : "Dark mode"}</span>
                   </button>
                 </div>
               )}

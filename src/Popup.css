@@ -109,3 +109,38 @@
     font-size: 14px;
   }
 }
+
+/* Dark mode popup overrides (inherit from root .dark) */
+.app-root.dark .popup-overlay {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.app-root.dark .popup-content {
+  background: #072033; /* deep card on dark background */
+  color: #e6eef6;
+  border: 1px solid rgba(230, 238, 246, 0.06);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+}
+
+.app-root.dark .popup-icon {
+  border-color: #e6eef6;
+  color: #e6eef6;
+}
+
+.app-root.dark .popup-message {
+  color: #e6eef6;
+}
+
+.app-root.dark .popup-close {
+  background: transparent;
+  border: 1px solid rgba(230, 238, 246, 0.06);
+  color: #e6eef6;
+}
+
+.app-root.dark .popup-close:hover {
+  background: rgba(230, 238, 246, 0.03);
+}
+
+.app-root.dark .popup-paragraph {
+  color: #cbdaf0;
+}

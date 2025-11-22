@@ -343,3 +343,72 @@
     order: 1;
   }
 }
+
+/* Dark mode overrides */
+.app-root.dark {
+  background: #04223a; /* dark blue background */
+  color: #e6eef6;
+}
+
+.app-root.dark .game-title {
+  color: #e6eef6;
+}
+
+.app-root.dark .subtitle,
+.app-root.dark .game-number,
+.app-root.dark .footer-message,
+.app-root.dark .lives-label {
+  color: #cbdaf0;
+}
+
+.app-root.dark .menu-button {
+  color: #e6eef6;
+}
+
+.app-root.dark .menu-button:hover {
+  background: rgba(230, 238, 246, 0.06);
+}
+
+.app-root.dark .dropdown-menu {
+  background: #062a44;
+  border: 1px solid rgba(230, 238, 246, 0.06);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+}
+
+.app-root.dark .dropdown-item {
+  color: #e6eef6;
+}
+
+.app-root.dark .dropdown-item:hover {
+  background: rgba(230, 238, 246, 0.03);
+}
+
+.app-root.dark .dropdown-icon {
+  border-color: #e6eef6;
+  color: #e6eef6;
+}
+
+/* Make game tiles dark navy */
+.app-root.dark .card {
+  background: #021a2b; /* dark navy for buttons */
+  color: #e6eef6;
+}
+
+.app-root.dark .card.future {
+  background: rgba(230, 238, 246, 0.03);
+  color: transparent;
+}
+
+.app-root.dark .card.correct {
+  background: #1f7a5a; /* adjust correct to stand out on dark */
+  color: #e6eef6;
+}
+
+.app-root.dark .card.wrong {
+  background: #7f1d1d;
+  color: #ffecec;
+}
+
+.app-root.dark .footer-bar {
+  border-top: none;
+}
