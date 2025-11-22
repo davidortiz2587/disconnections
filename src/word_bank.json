@@ -95,6 +95,254 @@
             "word3": "Credits",
             "word4": "Dice",
             "imposter": "Sand"
+        },
+        {
+            "category": "Words that end in R",
+            "word1": "Marker",
+            "word2": "Eraser",
+            "word3": "Stapler",
+            "word4": "Warrior",
+            "imposter": "Pencil"
+        },
+        {
+            "category": "Famous last names",
+            "word1": "Stone",
+            "word2": "Fox",
+            "word3": "Keys",
+            "word4": "Rock",
+            "imposter": "Metal"
+        },
+        {
+            "category": "Colors with one letter changed",
+            "word1": "Rad",
+            "word2": "Punk",
+            "word3": "Block",
+            "word4": "Mellow",
+            "imposter": "Cool"
+        },
+        {
+            "category": "Things you do on the road",
+            "word1": "Pass",
+            "word2": "Stop",
+            "word3": "Turn",
+            "word4": "Drive",
+            "imposter": "Throw"
+        },
+        {
+            "category": "Things used to melt ice",
+            "word1": "Salt",
+            "word2": "Fire",
+            "word3": "Water",
+            "word4": "Hair Dryer",
+            "imposter": "Earth"
+        },
+        {
+            "category": "\"The\" bands",
+            "word1": "Police",
+            "word2": "Cure",
+            "word3": "Neighborhood",
+            "word4": "Doors",
+            "imposter": "EMT"
+        },
+        {
+            "category": "Numbers divisible by 3",
+            "word1": "21",
+            "word2": "69",
+            "word3": "420",
+            "word4": "27",
+            "imposter": "67"
+        },
+        {
+            "category": "Things that you can go on",
+            "word1": "Ride",
+            "word2": "Date",
+            "word3": "Trip",
+            "word4": "Cruise",
+            "imposter": "Pool"
+        },
+        {
+            "category": "____ gram",
+            "word1": "Tele",
+            "word2": "Insta",
+            "word3": "Pro",
+            "word4": "Ana",
+            "imposter": "Top"
+        },
+        {
+            "category": "Words in Disney Pixar movies",
+            "word1": "Monsters",
+            "word2": "Story",
+            "word3": "Bugs",
+            "word4": "Dinosaur",
+            "imposter": "Creatures"
+        },
+        {
+            "category": "Words that are commonly followed by numbers",
+            "word1": "High",
+            "word2": "Fantastic",
+            "word3": "Cloud",
+            "word4": "Seven",
+            "imposter": "Sky"
+        },
+        {
+            "category": "Things Worn On Lapels",
+            "word1": "Awareness Ribbon",
+            "word2": "Lapel Pin",
+            "word3": "Boutonnière",
+            "word4": "Lavalier",
+            "imposter": "Corsage"
+        },
+        {
+            "category": "Cocktails",
+            "word1": "Cosmopolitan",
+            "word2": "Greyhound",
+            "word3": "Screwdriver",
+            "word4": "Sea Breeze",
+            "imposter": "Martini"
+        },
+        {
+            "category": "Pixar Protagonists",
+            "word1": "Clownfish",
+            "word2": "Racecar",
+            "word3": "Grumpy Old Man",
+            "word4": "Talking Doll",
+            "imposter": "Scary Monster"
+        },
+        {
+            "category": "Starting With Synonyms For \"Eat\"",
+            "word1": "Bolt Cutter",
+            "word2": "Scarf Ring",
+            "word3": "Chow Mein",
+            "word4": "Wolf Eel",
+            "imposter": "Gorge Hook"
+        },
+        {
+            "category": "Adhere",
+            "word1": "Fix",
+            "word2": "Plaster",
+            "word3": "Paste",
+            "word4": "Stick",
+            "imposter": "Bond"
+        },
+        {
+            "category": "Graze",
+            "word1": "Brush",
+            "word2": "Kiss",
+            "word3": "Skim",
+            "word4": "Stroke",
+            "imposter": "Nudge"
+        },
+        {
+            "category": "Parts Of A Tooth",
+            "word1": "Crown",
+            "word2": "Enamel",
+            "word3": "Pulp",
+            "word4": "Root",
+            "imposter": "Gum"
+        },
+        {
+            "category": "Words That Sound Like Two Letters",
+            "word1": "Any",
+            "word2": "Arty",
+            "word3": "Decay",
+            "word4": "Essay",
+            "imposter": "Queue"
+        },
+        {
+            "category": "Stocky",
+            "word1": "Husky",
+            "word2": "Squat",
+            "word3": "Solid",
+            "word4": "Thick",
+            "imposter": "Stout"
+        },
+        {
+            "category": "Steer",
+            "word1": "Direct",
+            "word2": "Lead",
+            "word3": "Guide",
+            "word4": "Shepherd",
+            "imposter": "Pilot"
+        },
+        {
+            "category": "Second Words In Poe Stories, After \"The\"",
+            "word1": "Cask",
+            "word2": "Pit",
+            "word3": "Fall",
+            "word4": "Masque",
+            "imposter": "Raven"
+        },
+        {
+            "category": "Organ Plus A Letter",
+            "word1": "Colony",
+            "word2": "Hearth",
+            "word3": "Lunge",
+            "word4": "Skink",
+            "imposter": "Kidney"
+        },
+        {
+            "category": "Funny Person",
+            "word1": "Clown",
+            "word2": "Joker",
+            "word3": "Laugh",
+            "word4": "Riot",
+            "imposter": "Comic"
+        },
+        {
+            "category": "Kinds Of Tomatoes",
+            "word1": "Cherry",
+            "word2": "Grape",
+            "word3": "Plum",
+            "word4": "Roma",
+            "imposter": "Olive"
+        },
+        {
+            "category": "Best Actress Oscar Winners",
+            "word1": "Berry",
+            "word2": "Stone",
+            "word3": "Swank",
+            "word4": "Madison",
+            "imposter": "Close"
+        },
+        {
+            "category": "Ending In Synonyms For \"Location\"",
+            "word1": "Commonplace",
+            "word2": "Parasite",
+            "word3": "Needlepoint",
+            "word4": "Sunspot",
+            "imposter": "Postmark"
+        },
+        {
+            "category": "\"You Bet\"",
+            "word1": "Absolutely",
+            "word2": "Of Course",
+            "word3": "Okey-Doke",
+            "word4": "Sure Thing",
+            "imposter": "Affirmative"
+        },
+        {
+            "category": "Forbidden",
+            "word1": "Off-Limits",
+            "word2": "Proscribed",
+            "word3": "Taboo",
+            "word4": "Verboten",
+            "imposter": "Sacred"
+        },
+        {
+            "category": "Basketball Shots",
+            "word1": "Alley-Oop",
+            "word2": "Finger Roll",
+            "word3": "Fadeaway",
+            "word4": "Slam Dunk",
+            "imposter": "Pivot"
+        },
+        {
+            "category": "Starting With Synonyms For \"Scram!\"",
+            "word1": "Go-Getter",
+            "word2": "Scattergories",
+            "word3": "Leavening",
+            "word4": "Shoo-In",
+            "imposter": "Runway"
         }
     ]
 }
